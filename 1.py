@@ -39,7 +39,6 @@ def dfs(parent, graph, visited, color):
 
 def main():
     graph, vertices = create_graph()
-    print(graph)
     color = {str(_): 0 for _ in range(1, int(vertices) + 1)}
     visited, color = DFS(vertices, [], graph, color)
     print(bipartite)
