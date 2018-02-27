@@ -20,19 +20,19 @@ def create_graph():
 
 
 def DFS(vertices, visited, graph, color):
-    for s in vertices:
-        if s not in visited:
-            return dfs(s, graph, visited, color)
+    for current in vertices:
+        if current not in visited:
+            return dfs(current, graph, visited, color)
 
 
-def dfs(v, graph, visited, color):
+def dfs(parent, graph, visited, color):
     global bipartite
-    for u in graph[v]:
-        if u not in visited:
-            visited.append(u)
-            color[u] = 1 - color[v]
-            dfs(u, graph, visited, color)
-        elif color[u] == color[v]:
+    for neighbor in graph[parent]:
+        if neighbor not in visited:
+            visited.append(neighbor)
+            color[neighbor] = 1 - color[parent]
+            dfs(neighbor, graph, visited, color)
+        elif color[neighbor] == color[parent]:
             bipartite = "NO"
     return visited, color
 
