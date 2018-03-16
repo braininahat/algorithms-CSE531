@@ -1,6 +1,7 @@
 # Author: Varun Shijo UB 50244968
 # DFS for Graphs
 
+# Global flag for bipartite condition
 bipartite = "YES"
 
 
@@ -8,7 +9,9 @@ def create_graph():
     vertices, edges = input().split(' ')
 
     # dictionary comprehension to initialize graph nodes
+    # using lists to represent adjacency
     graph = {str(_): [] for _ in range(1, int(vertices) + 1)}
+
     # read from stdin to populate edges
     for count in range(int(edges)):
         left, right = input().split(' ')
@@ -19,6 +22,7 @@ def create_graph():
     return graph, vertices
 
 
+# Seaprating parent and child nodes by using two functions
 def DFS(vertices, visited, graph, color):
     for current in vertices:
         if current not in visited:
