@@ -1,6 +1,6 @@
-par = {}
+partition = {}
 edges = []
-F = []
+path = []
 weight = 0
 
 
@@ -10,9 +10,7 @@ def create_graph():
     vertex_count = int(vertex_count)
     edge_count = int(edge_count)
 
-    # dictionary comprehension to initialize graph nodes
     graph = {(_): [] for _ in range(1, (vertex_count + 1))}
-    # read from stdin to populate edges
     for count in range(edge_count):
         left, right, weight = input().split(' ')
         left = int(left)
@@ -21,42 +19,36 @@ def create_graph():
         if right not in graph[left]:
             edges.append((left, right, weight))
             graph[left].append((left, right, weight))
-        # if left not in graph[right]:
-        #     edges.append((right, left, weight))
-        #     graph[right].append((right, left, weight))
     return graph
 
 
 def root(vertex):
-    global par
-    if par[vertex] == {}:
+    global partition
+    if partition[vertex] == {}:
         return vertex
     else:
-        par[vertex] = root(par[vertex])
-        return par[vertex]
+        partition[vertex] = root(partition[vertex])
+        return partition[vertex]
 
 
 def mst_kruskal(graph):
-    global edges, par, F, weight
+    global edges, partition, path, weight
     for vertex in graph:
-        par[vertex] = {}
-    #     graph[vertex].sort(key=lambda x: x[2])
-    # print(par)
+        partition[vertex] = {}
     edges.sort(key=lambda x: x[2])
 
     for edge in edges:
         u_prime = root(edge[0])
         v_prime = root(edge[1])
         if u_prime != v_prime:
-            F.append(edge[:2])
+            path.append(edge[:2])
             weight += edge[2]
-            par[u_prime] = v_prime
-    return F
+            partition[u_prime] = v_prime
+    return path
 
 
 def main():
     graph = create_graph()
-    # print(graph)
     mst_edges = sorted(mst_kruskal(graph), key=lambda y: y[0])
     print(weight)
     [print(edge[0],edge[1]) for edge in mst_edges]
