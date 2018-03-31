@@ -2,9 +2,9 @@ def matmult(a, b):
     result = []
     for i in range(len(a)):
         row = []
-        for j in range(len(b[0])):
+        for j in range(len(b)):
             product = 0
-            for k in range(len(b)):
+            for k in range(len(a[i])):
                 product += a[i][k] * b[k][j]
             row.append(product)
         result.append(row)
